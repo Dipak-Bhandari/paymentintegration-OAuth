@@ -12,7 +12,11 @@
     "skills": [
         "fortify-development",
         "laravel-best-practices",
+        "passport-development",
+        "socialite-development",
         "wayfinder-development",
-        "pest-testing"
+        "pest-testing",
+        "inertia-react-development",
+        "tailwindcss-development"
     ]
 }
