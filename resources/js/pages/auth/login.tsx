@@ -1,6 +1,8 @@
-import { Form, Head } from '@inertiajs/react';
+import { Form, Head, usePage } from '@inertiajs/react';
 import InputError from '@/components/input-error';
 import PasswordInput from '@/components/password-input';
+import { GithubIcon } from '@/components/svgicons/github';
+import { GoogleIcon } from '@/components/svgicons/google';
 import TextLink from '@/components/text-link';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,6 +24,8 @@ export default function Login({
     canResetPassword,
     canRegister,
 }: Props) {
+    const { auth } = usePage().props;
+
     return (
         <>
             <Head title="Log in" />
@@ -84,7 +88,7 @@ export default function Login({
 
                             <Button
                                 type="submit"
-                                className="mt-4 w-full"
+                                className="mt-4 w-full cursor-pointer"
                                 tabIndex={4}
                                 disabled={processing}
                                 data-test="login-button"
@@ -92,12 +96,43 @@ export default function Login({
                                 {processing && <Spinner />}
                                 Log in
                             </Button>
+
+                            {!auth.user && (
+                                <div className="grid gap-2">
+                                    <Button
+                                        variant="outline"
+                                        className="w-full cursor-pointer"
+                                        tabIndex={5}
+                                        onClick={() =>
+                                            (window.location.href =
+                                                '/auth/google')
+                                        }
+                                    >
+                                        {processing && <Spinner />}
+                                        <GoogleIcon />
+                                        Log in with Google
+                                    </Button>
+                                    <Button
+                                        variant="outline"
+                                        className="w-full cursor-pointer"
+                                        tabIndex={6}
+                                        onClick={() =>
+                                            (window.location.href =
+                                                '/auth/github')
+                                        }
+                                    >
+                                        {processing && <Spinner />}
+                                        <GithubIcon />
+                                        Log in with GitHub
+                                    </Button>
+                                </div>
+                            )}
                         </div>
 
                         {canRegister && (
                             <div className="text-center text-sm text-muted-foreground">
                                 Don't have an account?{' '}
-                                <TextLink href={register()} tabIndex={5}>
+                                <TextLink href={register()} tabIndex={7}>
                                     Sign up
                                 </TextLink>
                             </div>
